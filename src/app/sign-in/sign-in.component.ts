@@ -9,6 +9,10 @@ export class SignINComponent implements OnInit {
 
   constructor() { }
 
+  handleSignUp() {
+    return 0
+  }
+
   ngOnInit(): void {
   }
 

@@ -8,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
 
   constructor() { }
+  
+  page : number = 1
+
+  handleSignUp() {
+    return 0
+  }
 
   ngOnInit(): void {
   }
