@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserData } from 'src/types/User';
 
 @Component({
   selector: 'app-register',
@@ -7,11 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  UserData : UserData = {
+    name: '',
+    email: '',
+    phone: '',
+    dob: '',
+    gender: '',
+    password: '',
+    password1: ''
+  }
+
   constructor() { }
   
   page : number = 1
 
-  handleSignUp() {
+  handleSignUp(e  : any) {
+    e.preventDefault()
+    alert("Work in progress")
     return 0
   }
 

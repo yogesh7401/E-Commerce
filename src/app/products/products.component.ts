@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/types/products';
+import { ProductsService } from '../products.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-products',
@@ -6,32 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+  loading: boolean = true
+  products : Product[] = []
+  loader = this.loadingBar.useRef();
+  
+  constructor(private Products : ProductsService,private loadingBar: LoadingBarService) { }
 
-  constructor() { }
-  products : {
-    ProductName  : string,
-    Price        : number,
-    Description  : string,
-    DisplayImage : string,
-    Images       : string[],
-    ProductID    : number
-  }[] = []
   ngOnInit(): void {
-    fetch('https://dummyjson.com/products')
-    .then(res => res.json())
-    .then(data => {
-      data.products.map((p : any) => {
-        this.products.push({
-          ProductName  : p.title,
-          Price        : p.price,
-          Description  : p.description,
-          DisplayImage : p.thumbnail,
-          Images       : p.images,
-          ProductID    : p.id
-        })
-      })
-      console.log(this.products);
-    });
+    this.loader.start()
+    this.products = this.Products.getProducts()
+  }
+
+  ngDoCheck(): void {
+    if(this.products.length > 0 && this.loading) {
+      this.loading = false
+      this.loader.complete()
+    }
   }
 
 }

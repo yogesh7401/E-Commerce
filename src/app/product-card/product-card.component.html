@@ -9,7 +9,7 @@
             </p>
         </div>
         <div class="h-60 m-auto flex flex-wrap content-center">
-            <img src="{{ Product?.DisplayImage }}" class="mx-auto h-60" alt="">
+            <img loading="lazy" src="{{ Product?.DisplayImage }}" class="mx-auto h-60" alt="">
         </div>
         <!-- <img class="h-60 m-auto" src="https://m.media-amazon.com/images/I/81Ke5qtC6oL._AC_UL320_.jpg" alt=""> -->
     </div>
@@ -17,13 +17,13 @@
         <div class="flex justify-between">
             <div class="flex items-center gap-2">
                 <p class="text-primary hover:text-secondary line-clamp-1">                
-                    <a routerLink="/product/{{ Product?.ProductID }}">
+                    <a [state]="{ ignoreLoadingBar: true }" routerLink="/product/{{ Product?.ProductID }}">
                         {{ Product?.ProductName }}
                     </a>
                 </p>
             </div> 
             <div class="flex items-center gap-2">
-                <a routerLink="/product/{{ Product?.ProductID }}">
+                <a [state]="{ ignoreLoadingBar: true }" routerLink="/product/{{ Product?.ProductID }}">
                     <svg class="w-5 h-5 block cursor-pointer" viewBox="0 0 24 24"><path fill="skyblue" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h14v-7h2v7q0 .825-.587 1.413Q19.825 21 19 21Zm4.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4Z"/></svg>
                 </a>
                 <p class="text-primary">₹{{ Product?.Price }}</p>
@@ -44,14 +44,14 @@
                 <span class="h-3 w-3 rounded-full bg-blue-500 border border-gray-600"></span>
             </div>
         </div>
-        <div class="flex absolute bottom-5 w-full items-center">
+        <div class="flex absolute bottom-5 right-2 items-center">
             <div class="bg-secondary hover:bg-opacity-75 rounded-3xl">
                 <svg class="w-5 h-5 m-2" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35Z"/></svg>
             </div>
             <div class="h-full bg-secondary hover:bg-opacity-75 rounded-3xl ml-1">
                 <button class="flex h-full m-2 text-white w-[213px]">
                     <div class="flex mx-auto items-center self-center gap-1">
-                        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="white" d="M7 22q-.825 0-1.412-.587Q5 20.825 5 20q0-.825.588-1.413Q6.175 18 7 18t1.412.587Q9 19.175 9 20q0 .825-.588 1.413Q7.825 22 7 22Zm10 0q-.825 0-1.412-.587Q15 20.825 15 20q0-.825.588-1.413Q16.175 18 17 18t1.413.587Q19 19.175 19 20q0 .825-.587 1.413Q17.825 22 17 22ZM6.15 6l2.4 5h7l2.75-5ZM5.2 4h14.75q.575 0 .875.512q.3.513.025 1.038l-3.55 6.4q-.275.5-.738.775Q16.1 13 15.55 13H8.1L7 15h12v2H7q-1.125 0-1.7-.988q-.575-.987-.05-1.962L6.6 11.6L3 4H1V2h3.25Zm3.35 7h7Z"/></svg>
+                        <svg height="20" viewBox="0 0 24 24"><path fill="white" d="M7 22q-.825 0-1.412-.587Q5 20.825 5 20q0-.825.588-1.413Q6.175 18 7 18t1.412.587Q9 19.175 9 20q0 .825-.588 1.413Q7.825 22 7 22Zm10 0q-.825 0-1.412-.587Q15 20.825 15 20q0-.825.588-1.413Q16.175 18 17 18t1.413.587Q19 19.175 19 20q0 .825-.587 1.413Q17.825 22 17 22ZM6.15 6l2.4 5h7l2.75-5ZM5.2 4h14.75q.575 0 .875.512q.3.513.025 1.038l-3.55 6.4q-.275.5-.738.775Q16.1 13 15.55 13H8.1L7 15h12v2H7q-1.125 0-1.7-.988q-.575-.987-.05-1.962L6.6 11.6L3 4H1V2h3.25Zm3.35 7h7Z"/></svg>
                         <p>Add to cart</p>
                     </div>
                 </button>

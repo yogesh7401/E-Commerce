@@ -12,6 +12,10 @@ import { BannerComponent } from './banner/banner.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductComponent } from './product/product.component';
+import { ProductCardSkeletonComponent } from './product-card-skeleton/product-card-skeleton.component';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,11 +28,15 @@ import { ProductComponent } from './product/product.component';
     BannerComponent,
     ProductsComponent,
     ProductCardComponent,
-    ProductComponent
+    ProductComponent,
+    ProductCardSkeletonComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LoadingBarModule,
+    LoadingBarRouterModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

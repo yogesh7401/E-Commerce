@@ -1,8 +1,13 @@
 <div class="bg-gray-100 min-h-screen">
     <div class="container mx-auto p-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" *ngIf="!loading">
             <div *ngFor="let product of products">
                 <app-product-card [Product]="product"></app-product-card>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" *ngIf="loading">
+            <div *ngFor="let i of [].constructor(12)">
+                <app-product-card-skeleton></app-product-card-skeleton>
             </div>
         </div>
     </div>

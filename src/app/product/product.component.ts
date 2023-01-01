@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Product } from 'src/types/products';
+import { ProductsService } from '../products.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-product',
@@ -8,24 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) {}
+  loader = this.loadingBar.useRef();
+
+  constructor(private route: ActivatedRoute, private Products : ProductsService,private loadingBar: LoadingBarService) {}
 
   id: string | null = ''
-  Product: {
-    ProductName: string;
-    Price: any;
-    Description: string;
-    DisplayImage: string;
-    Images: string[];
-    ProductID: number;
-    BrandName: string;
-    Discount: number;
-    AvailableStock: number;
-  } | undefined
-  Image : string = ''
+  Product: Product | undefined
+  Image : string | undefined = ''
   SelectedImage : number = 0
   Count : number = 1
   TotalCost : number = 0
+  loading: boolean = true
 
   SwitchImage(i: number) {
     this.SelectedImage = i; 
@@ -44,23 +40,17 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loader.start()
     this.id = this.route.snapshot.paramMap.get('id')
-    fetch('https://dummyjson.com/products/'+this.id)
-    .then(res => res.json())
-    .then(data => { 
-      this.Product = {
-        ProductName: data.title,
-        Price: data.price,
-        Description: data.description,
-        DisplayImage: data.thumbnail,
-        Images: data.images,
-        ProductID: data.id,
-        BrandName: data.brand,
-        Discount: data.discountPercentage,
-        AvailableStock: data.stock
-      }
-      this.TotalCost = data.price
-      this.Image = data.images[this.SelectedImage]
-    });
+    this.Product = this.Products.getProductById(this.id)
+  }
+
+  ngDoCheck(): void {
+    if(this.Product && this.loading) {
+      this.TotalCost = this.Product?.Price
+      this.Image = this.Product?.Images[this.SelectedImage]
+      this.loading = false
+      this.loader.complete()
+    }
   }
 }
