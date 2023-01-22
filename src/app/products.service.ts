@@ -10,7 +10,7 @@ export class ProductsService {
 
   getProducts() {
     let products : Product[] = []
-    const data = from(fetch('https://dummyjson.com/products'))
+    const data = from(fetch('https://dummyjson.com/products/search?q=furniture'))
     data.subscribe({
       next(response) { response.json().then(data => {
         data.products.map((data : any) => products.push({
