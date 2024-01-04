@@ -1,11 +1,35 @@
 <div class="bg-gray-100 min-h-screen">
     <div class="container mx-auto p-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" *ngIf="!loading">
-            <div *ngFor="let product of products">
-                <app-product-card [Product]="product"></app-product-card>
-            </div>
+        <div class="w-10 pr-2 border-r mr-3" *ngIf="!toggle">
+            <svg class="cursor-pointer mb-1" (click)="toggle=!toggle" width="32" height="32" viewBox="0 0 24 24"><path fill="#256D85" d="m12 16l4-4l-4-4l-1.4 1.4l1.6 1.6H8v2h4.2l-1.6 1.6L12 16Zm0 6q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" *ngIf="loading">
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            <div *ngIf="toggle && !loading" class="sm:col-span-2 md:col-span-2 lg:col-span-1 relative border-r w-52">
+                <svg class="right-1 cursor-pointer absolute mb-1" (click)="toggle=!toggle" width="32" height="32" viewBox="0 0 24 24"><path fill="#256D85" d="M11.8 13H15q.425 0 .713-.288T16 12q0-.425-.288-.713T15 11h-3.2l.9-.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275l-2.6 2.6q-.3.3-.3.7t.3.7l2.6 2.6q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-.9-.9Zm.2 9q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
+                <h3 class="mb-1 text-lg text-primary">
+                    Categories
+                </h3>
+                <ul *ngIf="productCategories.length > 0" class="mt-2">
+                    <li class="font-medium text-sm text-secondary my-1 flex align-middle gap-3">
+                        <input [defaultChecked]="true" [checked]="filteredCategories.length === 0 || filteredCategories.length === productCategories.length" (click)="onSelect('All')" type="checkbox" name="all" id="all" /> <label for="all" class="capitalize">All</label>
+                    </li>
+                    <li class="font-medium text-sm text-secondary my-1 flex align-middle gap-3" *ngFor="let categories of productCategories">
+                        <input [checked]="filteredCategories.includes(categories)" (click)="onSelect(categories)" type="checkbox" [name]="categories" [id]="categories"> <label [for]="categories" class="capitalize">{{ categories }}</label>
+                    </li>
+                </ul>
+            </div>
+            <div [ngClass]="{'sm:col-span-2 md:col-span-3 xl:col-span-4': toggle,'col-span-5': !toggle}" class="flex justify-between flex-wrap gap-3" *ngIf="!loading">
+                <div *ngFor="let product of products" class="w-full sm:w-auto">
+                    <app-product-card [Product]="product"></app-product-card>
+                </div>
+                <div class="flex w-full">
+                    <button (click)="loadMore()" *ngIf="hasMore" class="ml-auto py-2 px-4 rounded-md bg-light text-center text-primary">load more...</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="flex flex-wrap gap-3" *ngIf="loading">
             <div *ngFor="let i of [].constructor(12)">
                 <app-product-card-skeleton></app-product-card-skeleton>
             </div>

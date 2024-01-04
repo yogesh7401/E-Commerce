@@ -16,6 +16,7 @@ import { ProductCardSkeletonComponent } from './product-card-skeleton/product-ca
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     LoadingBarModule,
     LoadingBarRouterModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
